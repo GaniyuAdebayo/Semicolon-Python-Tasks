@@ -5,7 +5,7 @@ for num in range (1, 13):
 		case 1:
 			print("On the first day of christmas")
 		case 2:
-			print("On the first day of christmas")
+			print("On the second day of christmas")
 		case 3:
 			print("On the third day of christmas")
 		case 4:
