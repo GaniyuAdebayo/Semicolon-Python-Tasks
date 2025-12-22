@@ -1,46 +1,81 @@
 import re
 
 def card_number_length(number):
-	
-	card_length = len(number)
 
-	return f"Credit Card Number Length: {card_length}"
+	number = str(number)
+	
+	card_length = credit_card_number(number)
+
+	return card_length
 
 def credit_card_type(number):
 
+	number = str(number)
+
+	number = credit_card_number(number)
+
+	type = ""
+
 	if (number.startswith("4")):
-		return ("Credit Card Type: Visa Card")
+		type = "Visa Card"
 	
 	elif (number.startswith("5")):
-		return ("Credit Card Type: Master Card")
+		type = "Master Card"
 
 	elif (number.startswith("6")):
-		return ("Credit Card Type: Discover Card")
+		type = "Discover Card"
 	
 	elif (number.startswith("37")):
-		return ("Credit Card Type: Master Card")
+		type = "American Express Card"
 	else:
-		return ("Credit Card Type: Invalid Card")
+		type = "Invalid Card"
+
+	return type
+
 
 def credit_card_number(number):
 
-	return (f"Credit Card Number: {number}")
+	number = str(number)
+	
+	numberOnly = re.match("^[\\d\\s-]{13,19}$", number)		
+
+	number = re.sub("\\D+", "", number)	
+
+	if (len(number) >= 13 and len(number) <= 16 and numberOnly != None):
+
+		return number
+	else:
+		raise RuntimeError("Invalid Number, please try again")
+
 
 def credit_card_validity_status (number):
 
+	number = str(number)
+
+	number = credit_card_number(number)
+
+	evenSum = 0
+	oddSum = 0
+
+
 	for value in range (1, len(number) + 1):
 
-		evenSum = 0
-		oddSum = 0
 		if (value % 2 == 0):
 
-			evenSum = (int(number[len(number) - value]) * 2) + evenSum 
+			val = int(number[len(number) - value]) * 2
+
+			if (val > 9):
+				evenSum += (val - 9)
+			
+			else:
+				evenSum += val
 
 		else:
 
 			oddSum = oddSum + int(number[len(number) - value])
 
+
 	if ((evenSum + oddSum) % 10 == 0):
-		return "Credit Card Validity Status: Valid"
+		return "Valid"
 	else:
-		return "Credit Card Validity Status: Invalid"
+		return "Invalid"
