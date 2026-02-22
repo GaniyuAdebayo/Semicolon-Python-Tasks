@@ -8,13 +8,15 @@ public class TaskThirteen{
 		System.out.println("Enter a sentence: ");
 		String sentence = input.nextLine().trim();
 
-		String [] sentenceArray = sentence.split(" ")
-
 		int numberOfWords = 1;
 
 		for (int index = 0; index < sentence.length(); index++){
 			if(sentence.charAt(index) == ' '){
 				numberOfWords++;
+			}
+
+			if(sentence.charAt(index) == ' ' && sentence.charAt(index+1) == ' '){
+				numberOfWords--;
 			}
 
 		}
